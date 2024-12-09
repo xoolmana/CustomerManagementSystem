@@ -20,7 +20,7 @@ public class LoginForm extends JFrame {
         setTitle("Admin Login");
         setSize(300, 150);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+                
         userField = new JTextField(15);
         passField = new JPasswordField(15);
         loginButton = new JButton("Login");
@@ -56,9 +56,14 @@ public class LoginForm extends JFrame {
     
     private void addComponents() {
         JPanel panel = new JPanel();
-        panel.add(new JLabel("Username:"));
+        panel.setBackground(new java.awt.Color(51, 51, 51));
+        JLabel userLabel = new JLabel("Username:");
+        userLabel.setForeground(new java.awt.Color(255,255,255));
+        panel.add(userLabel);
         panel.add(userField);
-        panel.add(new JLabel("Password:"));
+        JLabel passwordLabel = new JLabel("Password:");
+        passwordLabel.setForeground(new java.awt.Color(255,255,255));
+        panel.add(passwordLabel);
         panel.add(passField);
         panel.add(loginButton);
         add(panel);
