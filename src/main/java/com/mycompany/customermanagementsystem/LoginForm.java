@@ -42,7 +42,7 @@ public class LoginForm extends JFrame {
                     dispose();
                 } catch (SQLException error) {
                     // [ IF PASSWORD/USER DOES NOT WORK - CANNOT CONNECT TO DB ]
-                    
+                    System.out.println(error);
                     System.out.println("Invalid login.");
                     JOptionPane.showMessageDialog(null, "Invalid login!");
                 }

@@ -65,10 +65,50 @@ public class ActorManagementForm extends JFrame {
         panel.add(addButton);
         panel.add(editButton);
         panel.add(deleteButton);
-
-        add(new JScrollPane(actorTable), BorderLayout.CENTER);
+        
+        JScrollPane scrollPane = new JScrollPane(actorTable);
+        add(scrollPane, BorderLayout.CENTER);
         add(panel, BorderLayout.SOUTH);
-
+        
+        // [ DARK/LIGHT MODE ]
+        boolean darkMode = CustomerManagementSystem.darkMode;
+        Color darkColor = MainMenu.darkColor;
+        Color lightColor = MainMenu.lightColor;
+        
+        // [ TABLE ]
+        if (darkMode) {
+            actorTable.setBackground(darkColor);
+            actorTable.setForeground(lightColor.darker()); // [ TEXT ]
+            actorTable.setGridColor(lightColor.darker());   // [ GRID ]
+            actorTable.setSelectionBackground(darkColor.darker()); // [ SELECTION BG ]
+            actorTable.setSelectionForeground(lightColor);     // [ SELECTION TEXT ]
+            // [ HEADER ]
+            actorTable.getTableHeader().setBackground(darkColor);
+            actorTable.getTableHeader().setForeground(lightColor);
+        } else {
+            actorTable.setBackground(lightColor);
+            actorTable.setForeground(darkColor.darker()); // [ TEXT ]
+            actorTable.setGridColor(darkColor.darker());   // [ GRID ]
+            actorTable.setSelectionBackground(lightColor.darker()); // [ SELECTION BG ]
+            actorTable.setSelectionForeground(darkColor);     // [ SELECTION TEXT ]
+            // [ HEADER ]
+            actorTable.getTableHeader().setBackground(lightColor);
+            actorTable.getTableHeader().setForeground(darkColor.darker());
+        }
+        
+        getContentPane().setBackground(darkMode ? darkColor : lightColor);
+        panel.setBackground(darkMode ? darkColor : lightColor);
+        scrollPane.setBackground(darkMode ? darkColor : lightColor);
+        scrollPane.getViewport().setBackground(darkMode ? darkColor : lightColor);
+        
+        // [ BUTTONS ]
+        addButton.setBackground(darkMode ? darkColor.darker() : lightColor.darker());
+        addButton.setForeground(darkMode ? lightColor : darkColor);
+        editButton.setBackground(darkMode ? darkColor.darker() : lightColor.darker());
+        editButton.setForeground(darkMode ? lightColor : darkColor);
+        deleteButton.setBackground(darkMode ? darkColor.darker() : lightColor.darker());
+        deleteButton.setForeground(darkMode ? lightColor : darkColor);
+        
         setVisible(true);
         
         
@@ -92,11 +132,23 @@ public class ActorManagementForm extends JFrame {
         JTextField lastNameField = new JTextField(10);
 
         JPanel addPanel = new JPanel();
-        addPanel.add(new JLabel("First Name:"));
+        JLabel firstNameLabel = new JLabel("First Name:");
+        JLabel lastNameLabel = new JLabel("Last Name:");
+        addPanel.add(firstNameLabel);
         addPanel.add(firstNameField);
-        addPanel.add(new JLabel("Last Name:"));
+        addPanel.add(lastNameLabel);
         addPanel.add(lastNameField);
 
+        // [ DARK MODE ]
+        boolean darkMode = CustomerManagementSystem.darkMode;
+        Color darkColor = MainMenu.darkColor;
+        Color lightColor = MainMenu.lightColor;
+        
+        //getContentPane().setBackground(darkMode ? darkColor : lightColor);
+        //addPanel.setBackground(darkMode ? darkColor : lightColor);
+        firstNameLabel.setForeground(darkMode ? lightColor : darkColor);
+        lastNameLabel.setForeground(darkMode ? lightColor : darkColor);
+        
         int result = JOptionPane.showConfirmDialog(null, addPanel, "Add New Actor", JOptionPane.OK_CANCEL_OPTION);
         if (result == JOptionPane.OK_OPTION) {
             String firstName = firstNameField.getText();
@@ -131,11 +183,22 @@ public class ActorManagementForm extends JFrame {
         JTextField lastNameField = new JTextField(currentLastName, 10);
 
         JPanel editPanel = new JPanel();
-        editPanel.add(new JLabel("First Name:"));
+        JLabel firstNameLabel = new JLabel("First Name:");
+        JLabel lastNameLabel = new JLabel("Last Name:");
+        editPanel.add(firstNameLabel);
         editPanel.add(firstNameField);
-        editPanel.add(new JLabel("Last Name:"));
+        editPanel.add(lastNameLabel);
         editPanel.add(lastNameField);
 
+        // [ DARK MODE ]
+        boolean darkMode = CustomerManagementSystem.darkMode;
+        Color darkColor = MainMenu.darkColor;
+        Color lightColor = MainMenu.lightColor;
+        
+        firstNameLabel.setForeground(darkMode ? lightColor : darkColor);
+        lastNameLabel.setForeground(darkMode ? lightColor : darkColor);
+        //
+        
         int result = JOptionPane.showConfirmDialog(null, editPanel, "Edit Actor", JOptionPane.OK_CANCEL_OPTION);
         if (result == JOptionPane.OK_OPTION) {
             String newFirstName = firstNameField.getText();

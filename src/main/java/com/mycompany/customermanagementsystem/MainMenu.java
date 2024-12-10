@@ -4,19 +4,88 @@
  */
 package com.mycompany.customermanagementsystem;
 
+import javax.swing.JButton;
+import java.awt.Color;
+import javax.swing.UIManager;
+
 /**
  *
  * @author coolm
  */
+
 public class MainMenu extends javax.swing.JFrame {
 
     /**
      * Creates new form CustomerManagementFrame
      */
+    
+    // [ DARK/LIGHT MODE STUFF ]
+    
+    // [ VARIABLES THAT CAN BE USED GLOBALLY ]
+    
+    final static Color darkColor = new Color(51,51,51);
+    final static Color lightColor = new Color(255,255,255);
+    
+    public void updateThemeAppearance() {
+        // [ TABLE OF BUTTONS THAT WILL CHANGE COLOR ]
+        JButton[] buttons = new JButton[]{CustomersButton, ActorsButton, ReportsButton, ExitButton};
+        
+        boolean darkMode = CustomerManagementSystem.darkMode;
+        
+        // [ JOPTIONPANE ]
+        UIManager.put("OptionPane.background", darkMode ? darkColor : lightColor);
+        UIManager.put("Panel.background", darkMode ? darkColor : lightColor);
+        UIManager.put("OptionPane.messageForeground", darkMode ? lightColor : darkColor.darker());
+        UIManager.put("Button.background", darkMode ? darkColor.darker() : lightColor.darker());
+        UIManager.put("Button.foreground", darkMode ? lightColor : darkColor.darker());
+        
+        if (darkMode) {
+            // [ SET ITEMS TO DARK ]
+            // [ JOPTIONPANE ]
+        
+            DarkModeToggle.setText("Dark Mode: ON");
+            DarkModeToggle.setBackground(darkColor.darker());
+            DarkModeToggle.setForeground(lightColor);
+            
+            // Background Color
+            getContentPane().setBackground(darkColor);
+            
+            // Title Color
+            Title.setForeground(lightColor);
+            
+            for (JButton btn : buttons) {
+                btn.setBackground(darkColor.darker());
+                btn.setForeground(lightColor);
+            }
+            
+        } else {
+            // [ SET ITEMS TO LIGHT ]
+            
+            DarkModeToggle.setText("Dark Mode: OFF");
+            DarkModeToggle.setBackground(lightColor.darker());
+            DarkModeToggle.setForeground(darkColor);
+            
+            // Background Color
+            getContentPane().setBackground(lightColor);
+            
+            // Title Color
+            Title.setForeground(darkColor);
+            
+            for (JButton btn : buttons) {
+                btn.setBackground(lightColor.darker());
+                btn.setForeground(darkColor);
+            }
+        }
+        
+    }
+    
     public MainMenu() {
         initComponents();
         
-        getContentPane().setBackground(new java.awt.Color(51, 51, 51));
+        // [ SETS TOGGLE TO WHATEVER THE DARK MODE VARIABLE IS - WHEN MAIN MENU IS CREATED ]
+        DarkModeToggle.setSelected(CustomerManagementSystem.darkMode);
+        
+        updateThemeAppearance();
     }
 
     /**
@@ -32,7 +101,8 @@ public class MainMenu extends javax.swing.JFrame {
         ActorsButton = new javax.swing.JButton();
         ReportsButton = new javax.swing.JButton();
         ExitButton = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        Title = new javax.swing.JLabel();
+        DarkModeToggle = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAlwaysOnTop(true);
@@ -87,11 +157,20 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Verdana", 1, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("MANAGEMENT MENU");
-        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        Title.setFont(new java.awt.Font("Verdana", 1, 36)); // NOI18N
+        Title.setForeground(new java.awt.Color(255, 255, 255));
+        Title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Title.setText("MANAGEMENT MENU");
+        Title.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        DarkModeToggle.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        DarkModeToggle.setText("Dark Mode: OFF");
+        DarkModeToggle.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        DarkModeToggle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DarkModeToggleActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -102,16 +181,22 @@ public class MainMenu extends javax.swing.JFrame {
             .addComponent(ReportsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(ExitButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(24, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(22, 22, 22))
+                .addContainerGap(23, Short.MAX_VALUE)
+                .addComponent(Title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(23, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(DarkModeToggle, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(38, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(29, 29, 29)
+                .addContainerGap()
+                .addComponent(DarkModeToggle)
+                .addGap(22, 22, 22)
+                .addComponent(Title, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(CustomersButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ActorsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -157,12 +242,19 @@ public class MainMenu extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_ReportsButtonActionPerformed
 
+    private void DarkModeToggleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DarkModeToggleActionPerformed
+        // [ UPDATE GLOBAL DARK MODE VARIABLE WHENEVER TOGGLED ]
+        CustomerManagementSystem.darkMode = DarkModeToggle.isSelected();
+        updateThemeAppearance();
+    }//GEN-LAST:event_DarkModeToggleActionPerformed
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ActorsButton;
     private javax.swing.JButton CustomersButton;
+    private javax.swing.JToggleButton DarkModeToggle;
     private javax.swing.JButton ExitButton;
     private javax.swing.JButton ReportsButton;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel Title;
     // End of variables declaration//GEN-END:variables
 }

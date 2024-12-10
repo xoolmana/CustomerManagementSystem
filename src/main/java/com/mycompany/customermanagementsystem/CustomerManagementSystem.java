@@ -10,7 +10,12 @@ package com.mycompany.customermanagementsystem;
  */
 public class CustomerManagementSystem {
 
+    // [ GLOBAL VARIABLE FOR DARK MODE - USED FOR UI ]
+    public static boolean darkMode = false;
+    
     public static void main(String[] args) {
+        
+        
         new LoginForm();
     }
 }

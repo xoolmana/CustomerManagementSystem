@@ -1,5 +1,6 @@
 package com.mycompany.customermanagementsystem;
 
+import static com.mycompany.customermanagementsystem.MainMenu.darkColor;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -65,10 +66,52 @@ public class CustomerManagementForm extends JFrame {
         panel.add(addButton);
         panel.add(editButton);
         panel.add(deleteButton);
-
-        add(new JScrollPane(customerTable), BorderLayout.CENTER);
+        
+        JScrollPane scrollPane = new JScrollPane(customerTable);
+        
+        add(scrollPane, BorderLayout.CENTER);
         add(panel, BorderLayout.SOUTH);
-
+        
+        
+        // [ DARK/LIGHT MODE ]
+        boolean darkMode = CustomerManagementSystem.darkMode;
+        Color darkColor = MainMenu.darkColor;
+        Color lightColor = MainMenu.lightColor;
+        
+        // [ TABLE ]
+        if (darkMode) {
+            customerTable.setBackground(darkColor);
+            customerTable.setForeground(lightColor.darker()); // [ TEXT ]
+            customerTable.setGridColor(lightColor.darker());   // [ GRID ]
+            customerTable.setSelectionBackground(darkColor.darker()); // [ SELECTION BG ]
+            customerTable.setSelectionForeground(lightColor);     // [ SELECTION TEXT ]
+            // [ HEADER ]
+            customerTable.getTableHeader().setBackground(darkColor);
+            customerTable.getTableHeader().setForeground(lightColor);
+        } else {
+            customerTable.setBackground(lightColor);
+            customerTable.setForeground(darkColor.darker()); // [ TEXT ]
+            customerTable.setGridColor(darkColor.darker());   // [ GRID ]
+            customerTable.setSelectionBackground(lightColor.darker()); // [ SELECTION BG ]
+            customerTable.setSelectionForeground(darkColor);     // [ SELECTION TEXT ]
+            // [ HEADER ]
+            customerTable.getTableHeader().setBackground(lightColor);
+            customerTable.getTableHeader().setForeground(darkColor.darker());
+        }
+        
+        getContentPane().setBackground(darkMode ? darkColor : lightColor);
+        panel.setBackground(darkMode ? darkColor : lightColor);
+        scrollPane.setBackground(darkMode ? darkColor : lightColor);
+        scrollPane.getViewport().setBackground(darkMode ? darkColor : lightColor);
+        
+        // [ BUTTONS ]
+        addButton.setBackground(darkMode ? darkColor.darker() : lightColor.darker());
+        addButton.setForeground(darkMode ? lightColor : darkColor);
+        editButton.setBackground(darkMode ? darkColor.darker() : lightColor.darker());
+        editButton.setForeground(darkMode ? lightColor : darkColor);
+        deleteButton.setBackground(darkMode ? darkColor.darker() : lightColor.darker());
+        deleteButton.setForeground(darkMode ? lightColor : darkColor);
+        
         setVisible(true);
         
         
@@ -93,13 +136,28 @@ public class CustomerManagementForm extends JFrame {
         JTextField emailField = new JTextField(10);
 
         JPanel addPanel = new JPanel();
-        addPanel.add(new JLabel("First Name:"));
+        JLabel firstNameLabel = new JLabel("First Name:");
+        JLabel lastNameLabel = new JLabel("Last Name:");
+        JLabel emailLabel = new JLabel("Email:");
+        addPanel.add(firstNameLabel);
         addPanel.add(firstNameField);
-        addPanel.add(new JLabel("Last Name:"));
+        addPanel.add(lastNameLabel);
         addPanel.add(lastNameField);
-        addPanel.add(new JLabel("Email:"));
+        addPanel.add(emailLabel);
         addPanel.add(emailField);
-
+        
+        // [ DARK MODE ]
+        boolean darkMode = CustomerManagementSystem.darkMode;
+        Color darkColor = MainMenu.darkColor;
+        Color lightColor = MainMenu.lightColor;
+        
+        //getContentPane().setBackground(darkMode ? darkColor : lightColor);
+        //addPanel.setBackground(darkMode ? darkColor : lightColor);
+        firstNameLabel.setForeground(darkMode ? lightColor : darkColor);
+        lastNameLabel.setForeground(darkMode ? lightColor : darkColor);
+        emailLabel.setForeground(darkMode ? lightColor : darkColor);
+        
+        
         int result = JOptionPane.showConfirmDialog(null, addPanel, "Add New Customer", JOptionPane.OK_CANCEL_OPTION);
         if (result == JOptionPane.OK_OPTION) {
             String firstName = firstNameField.getText();
@@ -138,13 +196,25 @@ public class CustomerManagementForm extends JFrame {
         JTextField emailField = new JTextField(currentEmail, 10);
 
         JPanel editPanel = new JPanel();
-        editPanel.add(new JLabel("First Name:"));
+        JLabel firstNameLabel = new JLabel("First Name:");
+        JLabel lastNameLabel = new JLabel("Last Name:");
+        JLabel emailLabel = new JLabel("Email:");
+        editPanel.add(firstNameLabel);
         editPanel.add(firstNameField);
-        editPanel.add(new JLabel("Last Name:"));
+        editPanel.add(lastNameLabel);
         editPanel.add(lastNameField);
-        editPanel.add(new JLabel("Email:"));
+        editPanel.add(emailLabel);
         editPanel.add(emailField);
-
+        
+        // [ DARK MODE ]
+        boolean darkMode = CustomerManagementSystem.darkMode;
+        Color darkColor = MainMenu.darkColor;
+        Color lightColor = MainMenu.lightColor;
+        
+        firstNameLabel.setForeground(darkMode ? lightColor : darkColor);
+        lastNameLabel.setForeground(darkMode ? lightColor : darkColor);
+        emailLabel.setForeground(darkMode ? lightColor : darkColor);
+        
         int result = JOptionPane.showConfirmDialog(null, editPanel, "Edit Customer", JOptionPane.OK_CANCEL_OPTION);
         if (result == JOptionPane.OK_OPTION) {
             String newFirstName = firstNameField.getText();
@@ -173,8 +243,9 @@ public class CustomerManagementForm extends JFrame {
             JOptionPane.showMessageDialog(this, "Please select a customer to delete.", "No Selection", JOptionPane.WARNING_MESSAGE);
             return;
         }
-
+        
         int customerId = (int) tableModel.getValueAt(selectedRow, 0);
+        System.out.println(selectedRow);
         int confirmation = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this customer?", "Confirm Delete", JOptionPane.YES_NO_OPTION);
         
         if (confirmation == JOptionPane.YES_OPTION) {

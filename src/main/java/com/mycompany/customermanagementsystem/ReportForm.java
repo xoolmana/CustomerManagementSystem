@@ -36,11 +36,41 @@ public class ReportForm extends JFrame {
         reportTable = new JTable(tableModel);
         loadReports();
         
-        add(new JScrollPane(reportTable), BorderLayout.CENTER);
+        JScrollPane scrollPane = new JScrollPane(reportTable);
+        add(scrollPane, BorderLayout.CENTER);
+        
+        // [ DARK/LIGHT MODE ]
+        boolean darkMode = CustomerManagementSystem.darkMode;
+        Color darkColor = MainMenu.darkColor;
+        Color lightColor = MainMenu.lightColor;
+        
+        // [ TABLE ]
+        if (darkMode) {
+            reportTable.setBackground(darkColor);
+            reportTable.setForeground(lightColor.darker()); // [ TEXT ]
+            reportTable.setGridColor(lightColor.darker());   // [ GRID ]
+            reportTable.setSelectionBackground(darkColor.darker()); // [ SELECTION BG ]
+            reportTable.setSelectionForeground(lightColor);     // [ SELECTION TEXT ]
+            // [ HEADER ]
+            reportTable.getTableHeader().setBackground(darkColor);
+            reportTable.getTableHeader().setForeground(lightColor);
+        } else {
+            reportTable.setBackground(lightColor);
+            reportTable.setForeground(darkColor.darker()); // [ TEXT ]
+            reportTable.setGridColor(darkColor.darker());   // [ GRID ]
+            reportTable.setSelectionBackground(lightColor.darker()); // [ SELECTION BG ]
+            reportTable.setSelectionForeground(darkColor);     // [ SELECTION TEXT ]
+            // [ HEADER ]
+            reportTable.getTableHeader().setBackground(lightColor);
+            reportTable.getTableHeader().setForeground(darkColor.darker());
+        }
+        
+        setBackground(darkMode ? darkColor : lightColor);
+        getContentPane().setBackground(darkMode ? darkColor : lightColor);
+        scrollPane.setBackground(darkMode ? darkColor : lightColor);
+        scrollPane.getViewport().setBackground(darkMode ? darkColor : lightColor);
+
         setVisible(true);
-        
-        
-        
     }
     
     
