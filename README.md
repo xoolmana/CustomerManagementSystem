@@ -22,15 +22,21 @@ The main menu also includes a "Dark Mode" button that changes the theme colors o
   Main menu:<br>
   <img src="images/ManagementMenu_Ver2.png"><br>
   
-  Forms:<br>
+  Customers Form:<br>
   <img src="images/CustomersForm.png"><br>
+  Dark Version:<br>
   <img src="images/CustomersForm_Dark.png"><br>
+  Actors Form:<br>
   <img src="images/ActorsForm.png"><br>
+  Reports Form:<br>
   <img src="images/ReportsForm.png"><br>
 
   CRUD Pop-ups: <br>
+  Add Pop-up:
   <img src="images/AddPopup.png"><br>
+  Edit Pop-up
   <img src="images/EditPopup.png"><br>
+  Delete Pop-up:
   <img src="images/DeletePopup.png"><br>
 
 <br>
