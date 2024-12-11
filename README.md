@@ -32,11 +32,11 @@ The main menu also includes a "Dark Mode" button that changes the theme colors o
   <img src="images/ReportsForm.png"><br>
 
   CRUD Pop-ups: <br>
-  Add Pop-up:
+  Add Pop-up: <br>
   <img src="images/AddPopup.png"><br>
-  Edit Pop-up
+  Edit Pop-up: <br>
   <img src="images/EditPopup.png"><br>
-  Delete Pop-up:
+  Delete Pop-up: <br>
   <img src="images/DeletePopup.png"><br>
 
 <br>
