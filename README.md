@@ -42,7 +42,7 @@ The main menu also includes a "Dark Mode" button that changes the theme colors o
 <br>
 
 ## Code
-All the code for this project can be found in the master branch <br>
+All the code for this project can be found above <br>
 
 ## Software Specifications
 <p>
