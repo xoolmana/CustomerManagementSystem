@@ -46,7 +46,6 @@ All the code for this project can be found above <br>
 
 ## Software Specifications
 <p>
-Software specifications:<br>
   Java <br>
   MySQL <br>
   Netbeans 21<br>
